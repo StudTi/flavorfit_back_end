@@ -197,7 +197,7 @@ export type RecipeStepScalarFieldEnum = (typeof RecipeStepScalarFieldEnum)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  pasword: 'pasword',
+  password: 'password',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

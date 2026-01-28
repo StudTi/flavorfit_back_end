@@ -28,7 +28,7 @@ export class PrismaService
 
   async onModuleInit() {
     await this.$connect()
-    console.log('Prisma connected to PosthreSQL')
+    console.log('Prisma connected to PostgreSQL')
   }
 
   async onModuleDestroy() {
