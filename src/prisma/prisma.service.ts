@@ -1,6 +1,7 @@
 /* eslint-disable @tipescript-eslint/no-unsafe-call*/
 /* eslint-disable @tipescript-eslint/no-unsafe-assigment*/
-import { Injectable, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
+import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { PrismaPg } from '@prisma/adapter-pg'
 import { Pool } from 'pg'
 import { PrismaClient } from "prisma/generated/prisma/client";
@@ -12,29 +13,30 @@ export class PrismaService
 {
   private readonly pool: Pool
 
-  constructor() {
-    const connectionString = process.env.DATABASE_URL
+  private readonly logger: Logger
 
-    if (!connectionString) {
-      throw new Error('DATABASE_URL is not defined')
-    }
+  constructor(
+    private readonly configService: ConfigService
+  ) {
+    const connectionString = configService.getOrThrow("DATABASE_URL")
 
     const pool = new Pool({ connectionString })
     const adapter = new PrismaPg(pool)
 
     super({ adapter })
     this.pool = pool
+    this.logger = new Logger ("PrismaService")
   }
 
   async onModuleInit() {
     await this.$connect()
-    console.log('Prisma connected to PostgreSQL')
+    this.logger.log('Prisma connected to PostgreSQL')
   }
 
   async onModuleDestroy() {
     await this.$disconnect()
     await this.pool.end()
-    console.log('Prisma disconnected from PostgreSQL')
+    this.logger.log('Prisma disconnected from PostgreSQL')
   }
 }
 
