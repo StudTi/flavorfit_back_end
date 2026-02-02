@@ -15,7 +15,7 @@ registerEnumType(ActivityLevel, { name: 'ActivityLevel'})
 registerEnumType(NutritionalGoal, { name: 'NutritionalGoal'})
 
 @ObjectType()
-export class BodyMeasurementModel {
+export class BodyMeasurementModel implements Partial<BodyMeasurementModel> {
   @Field()
   id: string;
 

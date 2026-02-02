@@ -9,6 +9,7 @@ import { IAuthTokenData } from './auth.interface';
 import { UsersService } from 'src/users/users.service';
 import { Response } from 'express';
 import { isDev } from 'src/utils/is-dev.utils';
+import { Pick } from '@prisma/client/runtime/client';
 
 @Injectable()
 export class AuthService {
@@ -68,6 +69,27 @@ export class AuthService {
     })
     
     return { user, ...tokens }
+  }
+
+  async getNewTokens(refreshToken: string) {
+    const result = await this.jwt.verifyAsync<Pick<IAuthTokenData, 'id'>>(refreshToken)
+    if (!result) throw new BadRequestException('Недействительный токен обновления')
+    
+    const user = await this.usersService.findById(result.id)
+
+    if (!user) {
+      throw new NotFoundException('Пользователь не найден')
+    }
+
+    const tokens = this.generateTokens({
+      id: user.id,
+      role: user.role
+    })
+
+    return {
+      user,
+      ...tokens
+    }
   }
 
   private async validateUser(input: AuthInput){
