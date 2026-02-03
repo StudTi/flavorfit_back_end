@@ -39,12 +39,12 @@ model Ingredient {
 model RecipeIngredient {
   id String @id @default(cuid())
 
-  name    String
-  iconUrl String @map("icon_url")
-  content String
-  quality Float
-  unit    Unit
-  price   Float
+  name     String
+  iconUrl  String @map("icon_url")
+  content  String
+  quantity Float
+  unit     Unit
+  price    String
 
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String @map("recipe_id")

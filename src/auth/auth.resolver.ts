@@ -5,7 +5,6 @@ import { AuthInput } from './auth.input';
 import { AuthResponse } from './auth.interface';
 import type { IGqlContext } from 'src/app.interface';
 import { BadRequestException } from '@nestjs/common';
-import { response } from 'express';
 
 @Resolver()
 export class AuthResolver {

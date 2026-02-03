@@ -1,38 +1,19 @@
-import { Field, ObjectType, registerEnumType } from "@nestjs/graphql"
-import { Role } from "prisma/generated/prisma/enums"
-import { UserModel } from "prisma/generated/prisma/models"
+import { Field, ObjectType } from "@nestjs/graphql"
+import type { Pick } from "@prisma/client/runtime/client"
+import { User } from "prisma/generated/graphql/user"
 
-export interface IAuthTokenData {
-  id: string
-  role: Role
-}
+export type TAuthTokenData = Pick<User, 'id'| 'role'>
 
-export type TCurrentUser = Omit<UserModel, 'password'>
+export type TCurrentUser = Omit<User, 'password'>
 
 export type TRequestWithUser = {
   user?: TCurrentUser
 }
 
-registerEnumType(Role, {
-  name: 'Role'
-})
-
-@ObjectType()
-export class UserModule {
-  @Field()
-  id: string
-
-  @Field()
-  email: string
-
-  @Field(() => Role)  
-  role: Role
-}
-
 @ObjectType()
 export class AuthResponse{
-  @Field(() => UserModule)
-  user: UserModule
+  @Field(() => User)
+  user: User
 
   @Field()
   accessToken: string

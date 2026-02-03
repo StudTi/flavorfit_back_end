@@ -1430,7 +1430,7 @@ export const RecipeIngredientScalarFieldEnum = {
   name: 'name',
   iconUrl: 'iconUrl',
   content: 'content',
-  quality: 'quality',
+  quantity: 'quantity',
   unit: 'unit',
   price: 'price',
   recipeId: 'recipeId',
