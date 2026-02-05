@@ -9,16 +9,6 @@
 * 🟢 You can import this file directly.
 */
 
-export const OrderStatus = {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
-} as const
-
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
-
-
 export const Unit = {
   GRAM: 'GRAM',
   MILLILITER: 'MILLILITER',
@@ -29,6 +19,16 @@ export const Unit = {
 } as const
 
 export type Unit = (typeof Unit)[keyof typeof Unit]
+
+
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
 export const Difficulty = {

@@ -15,7 +15,9 @@ export class UserUpdateInput {
     @Field(() => ProfileUpdateWithoutUserInput, {nullable:true})
     profile?: ProfileUpdateWithoutUserInput;
 
-    @Field(() => BodyMeasurementUpdateWithoutUserInput, {nullable:true})
+    @Field(() => BodyMeasurementUpdateWithoutUserInput, {
+        nullable: true
+    })
     measurements?: BodyMeasurementUpdateWithoutUserInput;
 
 }
