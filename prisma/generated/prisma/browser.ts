@@ -63,6 +63,16 @@ export type RecipeIngredient = Prisma.RecipeIngredientModel
  */
 export type RecipeStep = Prisma.RecipeStepModel
 /**
+ * Model NutritionFact
+ * 
+ */
+export type NutritionFact = Prisma.NutritionFactModel
+/**
+ * Model RecipeTag
+ * 
+ */
+export type RecipeTag = Prisma.RecipeTagModel
+/**
  * Model User
  * 
  */

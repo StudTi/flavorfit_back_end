@@ -5,10 +5,10 @@ model Order {
   status  OrderStatus @default(PENDING)
 
   user   User   @relation(fields: [userId], references: [id])
-  userId String @unique @map("user_id")                    
+  userId String @unique @map("user_id")
 
-  createdAt DateTime @default(now()) @map("created_at")   
-  updatedAt DateTime @updatedAt @map("updated_at") 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("orders")
 }
@@ -16,13 +16,14 @@ model Order {
 model OrderItem {
   id String @id @default(cuid())
 
-  recipeIngredients RecipeIngredient @relation(fields: [recipeIngredientId], references: [id])
-  recipeIngredientId String          @map("recipe_ingredient_id")
+  recipeIngredients  RecipeIngredient @relation(fields: [recipeIngredientId], references: [id])
+  recipeIngredientId String           @map("recipe_ingredient_id")
 
-  quantity Int? @default(1)
+  quantity Decimal? @default(1)
+  price    Decimal
 
-  createdAt DateTime @default(now()) @map("created_at")   
-  updatedAt DateTime @updatedAt @map("updated_at") 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("order_items")
 }
@@ -33,15 +34,11 @@ model Courier {
   name        String
   phoneNumber String @map("phone_number")
 
-  createdAt DateTime @default(now()) @map("created_at")   
-  updatedAt DateTime @updatedAt @map("updated_at") 
-  
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   @@map("couriers")
 }
-
-
-
-
 
 enum OrderStatus {
   PENDING
@@ -49,4 +46,3 @@ enum OrderStatus {
   COMPLETED
   CANCELLED
 }
-

@@ -1,6 +1,7 @@
 model Recipe {
   id String @id @default(cuid())
 
+  slug        String     @unique //* Заголовки в адресной строке
   title       String
   description String
   calories    Int
@@ -19,18 +20,17 @@ model Recipe {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  tags          RecipeTag[]
+  nutritionFact NutritionFact?
+
   @@map("recipes")
 }
 
 model RecipeIngredient {
   id String @id @default(cuid())
 
-  name     String
-  iconUrl  String @map("icon_url")
-  content  String
-  quantity Float
-  unit     Unit
-  price    String
+  quantity Decimal
+  unit     Unit    @default(GRAM)
 
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String @map("recipe_id")
@@ -61,6 +61,34 @@ model RecipeStep {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("recipe_steps")
+}
+
+model NutritionFact {
+  id String @id @default(cuid())
+
+  proteins      Decimal
+  fats          Decimal
+  carbohydrates Decimal
+  fiber         Decimal
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String @unique @map("recipe_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("nutrition_facts")
+}
+
+model RecipeTag {
+  id String @id @default(cuid())
+
+  name String @unique
+
+  recipes Recipe[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 enum Difficulty {
