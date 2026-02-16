@@ -66,8 +66,6 @@ export class UsersService {
         }
       : {}
     
-      console.log('password', password)
-    
     const hashedPassword =
       password && typeof password == 'string'
       ? {

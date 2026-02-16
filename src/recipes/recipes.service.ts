@@ -17,7 +17,11 @@ export class RecipesService {
       },
       include: {
         recipeSteps: true,
-        recipeIngredients: true
+        recipeIngredients: {
+          include: {
+            ingredient: true
+          }
+        }
       }
     })
 
