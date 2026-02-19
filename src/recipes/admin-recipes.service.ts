@@ -25,7 +25,7 @@ export class AdminRecipesService {
 // Создание рецептов 
   create(
     authorId: string,
-    { recipeSteps, nutritionFact, ingredientsIds, tags, ...data }: RecipeCreateInput
+    { recipeSteps, nutritionFact, ingredients, tags, ...data }: RecipeCreateInput
   ) {
     return this.prisma.recipe.create({
       data: {
@@ -41,11 +41,12 @@ export class AdminRecipesService {
         recipeSteps: {
           create: recipeSteps
         },
-        ...(!!ingredientsIds?.length && {
+        ...(!!ingredients?.length && {
           recipeIngredients: {
-            create: ingredientsIds.map((ingredientId, index) => ({
-              ingredientId,
-              quantity: 1,
+            create: ingredients.map((item, index) => ({
+              ingredientId: item.ingredientId,
+              quantity: item.quantity,
+              unit: item.unit,
               order: index
             }))
           }
@@ -68,7 +69,7 @@ export class AdminRecipesService {
     {
       recipeSteps,
       nutritionFact,
-      ingredientsIds,
+      ingredients,
       tags,
       ...data
     }: RecipeCreateInput
@@ -95,12 +96,13 @@ export class AdminRecipesService {
             }))
           }
         }),
-        ...(ingredientsIds && {
+        ...(ingredients && {
           recipeIngredients: {
             deleteMany: {},
-            create: ingredientsIds.map((ingredientId, index) => ({
-              ingredientId,
-              quantity: 1,
+            create: ingredients.map((item, index) => ({
+              ingredientId: item.ingredientId,
+              quantity: item.quantity,
+              unit: item.unit,
               order: index
             }))
           }

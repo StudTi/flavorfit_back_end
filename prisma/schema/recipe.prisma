@@ -8,6 +8,8 @@ model Recipe {
   cookingTime Int        @map("cooking_time")
   difficulty  Difficulty
 
+  views Int @default(0)
+
   author   User   @relation(fields: [authorId], references: [id])
   authorId String @map("author_id")
 
