@@ -1,8 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import type { PrismaService } from 'src/prisma/prisma.service';
-import type { OrderCreateInput } from './inputs/order.input';
-import { QueueAction } from 'rxjs/internal/scheduler/QueueAction';
-import { OrderStatus } from 'prisma/generated/graphql/prisma';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { OrderCreateInput } from './inputs/order.input';
+import { OrderStatus } from './enums';
 
 @Injectable()
 export class OrdersService {

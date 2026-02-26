@@ -3,11 +3,11 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { Difficulty } from '../recipe.enums';
-import { User } from 'prisma/generated/graphql/user';
 import { NutritionFactModel } from './nutrition-fact.model';
 import { RecipeTagModel } from './recipe-tag.model';
 import { RecipeStepModel } from './recipe-steps.model';
 import { RecipeIngredientModel } from './recipe-ingredient.model';
+import { UserModel } from 'src/users/models/user.model';
 
 @ObjectType()
 export class RecipeModel {
@@ -42,8 +42,8 @@ export class RecipeModel {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
 
-    @Field(() => User, {nullable:false})
-    author?: User;
+    @Field(() => UserModel, {nullable:false})
+    author?: UserModel;
 
     @Field(() => [RecipeIngredientModel], {nullable:true})
     recipeIngredients?: Array<RecipeIngredientModel>;

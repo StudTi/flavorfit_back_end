@@ -3,6 +3,7 @@ import { IngredientsService } from './ingredients.service';
 import { IngredientsResolver } from './ingredients.resolver';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
+
 @Module({
   imports: [PrismaModule],
   providers: [IngredientsResolver, IngredientsService]

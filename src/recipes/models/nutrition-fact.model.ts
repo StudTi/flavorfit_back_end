@@ -1,5 +1,4 @@
 import { Field, Float, ID, ObjectType } from "@nestjs/graphql";
-import { Recipe } from "prisma/generated/graphql/recipe";
 
 @ObjectType()
 export class NutritionFactModel {

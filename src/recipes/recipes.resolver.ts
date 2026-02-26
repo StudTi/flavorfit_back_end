@@ -6,7 +6,7 @@ import { RecipeModel } from './models/recipe.model';
 import { RecipesService } from './recipes.service';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorators';
 import { RecipeCreateInput } from './inputs/recipe.input';
-import type { RecipesQueryInput } from './inputs/get-recipes.input';
+import { RecipesQueryInput } from './inputs/get-recipes.input';
 
 @Resolver()
 export class RecipesResolver {
@@ -29,7 +29,7 @@ export class RecipesResolver {
   }
 
   @Query(() => [RecipeModel], {
-    name: 'admin-recipes'
+    name: 'adminRecipes'
   })
   @Auth(Role.ADMIN)                 //* Может применять изменения только админ
   getAllAdmin() {

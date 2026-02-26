@@ -4,8 +4,8 @@ import { CommentModel } from './models/comment.model';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorators';
 import { CommentCreateInput, CommentUpdateInput } from './inputs/comment.input';
-import type { Role } from 'prisma/generated/graphql/prisma';
 import { ToggleLikeResponse } from './models/toggle-like.response';
+import { Role } from 'prisma/generated/prisma/enums';
 
 @Resolver()
 export class ReactionResolver {

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import type { PrismaService } from 'src/prisma/prisma.service';
-import type { RecipeCreateInput } from './inputs/recipe.input';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { RecipeCreateInput } from './inputs/recipe.input';
 
 @Injectable()
 export class AdminRecipesService {

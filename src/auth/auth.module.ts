@@ -9,7 +9,7 @@ import { getJwtConfig } from 'src/config/jwt.config';
 import { UsersModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
-
+import './auth.enum';
 
 @Module({
   imports: [
