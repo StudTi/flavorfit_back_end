@@ -12,22 +12,23 @@ export class AuthResolver {
 
   @Mutation(() => AuthResponse)
   async login(@Args('data') input: AuthInput, @Context(){ res }: IGqlContext) {
-  const { refreshToken, ...response } = await this.authService.login(input)
+    const { refreshToken, accessToken, ...response } = await this.authService.login(input)
 
-  this.authService.toggleRefreshTokenCookie(res, refreshToken)
+    this.authService.toggleAccessTokenCookie(res, accessToken)
+    this.authService.toggleRefreshTokenCookie(res, refreshToken)
 
-  return response
-}
+    return response
+  }
 
   @Mutation(() => AuthResponse)
   async register(
     @Args('data') input: AuthInput,
     @Context() { res }: IGqlContext
   ) { 
-    const { refreshToken, ...response } = await this.authService.register(input)
+    const { refreshToken, accessToken, ...response } = await this.authService.register(input)
 
+    this.authService.toggleAccessTokenCookie(res, accessToken)
     this.authService.toggleRefreshTokenCookie(res, refreshToken)
-    
 
     return response
   }
@@ -38,13 +39,15 @@ export class AuthResolver {
       req.cookies?.[this.authService.REFRESH_TOKEN_NAME]
 
     if (!initialRefreshToken) {
+      this.authService.toggleAccessTokenCookie(res, null)
       this.authService.toggleRefreshTokenCookie(res, null)
       throw new BadRequestException('Отсутствует токен обновления')
     }
 
-    const { refreshToken, ...response } =
+    const { refreshToken, accessToken, ...response } =
       await this.authService.getNewTokens(initialRefreshToken)
 
+    this.authService.toggleAccessTokenCookie(res, accessToken)
     this.authService.toggleRefreshTokenCookie(res, refreshToken)
 
     return response
@@ -55,12 +58,12 @@ export class AuthResolver {
     const initialRefreshToken =
       req.cookies?.[this.authService.REFRESH_TOKEN_NAME]
 
+    this.authService.toggleAccessTokenCookie(res, null)
+    this.authService.toggleRefreshTokenCookie(res, null)
+    
     if (!initialRefreshToken) {
-      this.authService.toggleRefreshTokenCookie(res, null)
       throw new BadRequestException('Отсутствует токен обновления')
     }
-
-    this.authService.toggleRefreshTokenCookie(res, null)
 
     return true
   }
